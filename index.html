@@ -1,73 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport", initial-scale=1.0">
-		<title>Sound Spinner</title>
-
-		<link rel="stylesheet" href="css/site.css" />
-      <link rel="shortcut icon" href="/finecode/img/favicon.ico" type="image/x-icon">
-	</head>
-
-	<body>
-      <div class="header">
-         <h1 class="title">Sound Spinner</h1>
-      </div>
-      <div class="container">
-  		   <button id="spin">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Spinner</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">Sound Spinner</h1>
+    </div>
+    <div class="container">
+        <button id="spin">
             <span class="text">
-               <span class="arrow">&#9650;</span>&#13;Spin
+                <span class="arrow">&#9650;</span><br>Spin
             </span>
-         </button>
-
-         <div class="shadow">
+        </button>
+        <div class="shadow">
             <div class="spinner">
-               <div class="pie">
-                  <div class="pie__segment" data-value='45', style='--start: 0'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 45'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 90'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 135'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 180'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 225'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 270'></div>
-                  <div class="pie__segment" data-value='45', style='--start: 315'></div>
-               </div>
-               <div class="images"><img id="one" src="img/turkey.png" alt=""></div>
-               <div class="images"><img id="two" src="img/horse.png" alt=""></div>
-               <div class="images" ><img id="three" src="img/sheep.png" alt=""></div>
-               <div class="images" ><img id="four" src="img/cat.png" alt=""></div>
-               <div class="images"><img id="five" src="img/duck.png" alt=""></div>
-               <div class="images"><img id="six" src="img/dog.png" alt=""></div>
-               <div class="images"><img id="seven" src="img/rooster.png" alt=""></div>
-               <div class="images"><img id="eight" src="img/cow.png" alt=""></div>
-
+                <div class="pie">
+                    <div class="pie__segment" data-value="45" style="--start: 0"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 45"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 90"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 135"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 180"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 225"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 270"></div>
+                    <div class="pie__segment" data-value="45" style="--start: 315"></div>
+                </div>
+                <div class="images"><img id="one"   src="img/turkey.png"  alt="turkey"></div>
+                <div class="images"><img id="two"   src="img/horse.png"   alt="horse"></div>
+                <div class="images"><img id="three" src="img/sheep.png"   alt="sheep"></div>
+                <div class="images"><img id="four"  src="img/cat.png"     alt="cat"></div>
+                <div class="images"><img id="five"  src="img/duck.png"    alt="duck"></div>
+                <div class="images"><img id="six"   src="img/dog.png"     alt="dog"></div>
+                <div class="images"><img id="seven" src="img/rooster.png" alt="rooster"></div>
+                <div class="images"><img id="eight" src="img/cow.png"     alt="cow"></div>
             </div>
-         </div>
-      </div>
-
-      <div class="switches">
-         <div id="setOne"><img src="img/cow.png" /><p>Set One</p></div>
-         <div id="setTwo"><img src="img/lion.png" /><p>Set Two</p></div>
-         <div id="setThree"><img src="img/frog.png" /><p>Set Three</p></div>
-      </div>
-
-      <div id="hidden"><img src="img/penguin.png" width="20px" height="20px"></div>
-
-      <div class="info">
-         <div class="infoIcon">&#9432;</div>
-         <div class="popupInfo" style="display: none;">
-         <h1>Sound Spinner Info</h1>
-         <p>This app is based off of the Fisher Price Animal Sounds toy of my youth. Many technologies went into this. So a special thanks go to the following people and companies.</p>
-         <ul>
-            <li>Fisher Price for the idea</li>
-            <li>Google for the images and sounds</li>
-            <li>Ghost Code for part of the spinner code and color scheme: <a href="https://codepen.io/GhostCode99/pen/BaQePwW" target="_blank">Ghost Code Code Pen</a></li>
-            <li>Jh3y for the better looking wheel: <a href="https://codepen.io/jh3y/pen/bQbpWd" target="_blank">Jh3y Code Pen</a></li>
-         </ul>
-         </div>
-      </div>
-
-		<script src="js/scripts.js"></script>
-	</body>
+        </div>
+    </div>
+    <div class="switches">
+        <div id="setOne"><img src="img/cow.png" alt="Set One"><p>Set One</p></div>
+        <div id="setTwo"><img src="img/lion.png" alt="Set Two"><p>Set Two</p></div>
+        <div id="setThree"><img src="img/frog.png" alt="Set Three"><p>Set Three</p></div>
+    </div>
+    <div id="hidden"><img src="img/penguin.png" width="20" height="20" alt="hidden"></div>
+    <div class="info">
+        <div class="infoIcon">&#9432;</div>
+        <div class="popupInfo" style="display: none;">
+            <h1>Sound Spinner Info</h1>
+            <p>This app is based off of the Fisher Price Animal Sounds toy of my youth. Many technologies went into this. So a special thanks go to the following people and companies.</p>
+            <ul>
+                <li>Fisher Price for the idea</li>
+                <li>Google for the images and sounds</li>
+                <li>Ghost Code for part of the spinner code and color scheme: <a href="https://codepen.io/GhostCode99/pen/BaQePwW" target="_blank">Ghost Code Code Pen</a></li>
+                <li>Jh3y for the better looking wheel: <a href="https://codepen.io/jh3y/pen/bQbpWd" target="_blank">Jh3y Code Pen</a></li>
+            </ul>
+            <button class="closeInfo">Close &#10006;</button>
+        </div>
+    </div>
+    <script src="js/scripts.js"></script>
+</body>
 </html>
