@@ -99,6 +99,9 @@ body {
     margin-left: calc(var(--img-size) / -2);
     margin-top: calc(var(--img-size) / -2);
     pointer-events: none;
+    /* Match spinner transition so counter-rotation stays in sync */
+    transition: transform var(--spin-duration) cubic-bezier(0.17, 0.67, 0.12, 0.99);
+    will-change: transform;
 }
 
 .images img {
@@ -108,14 +111,14 @@ body {
     display: block;
 }
 
-.images:nth-of-type(2) { transform: rotate(22.5deg)  translateY(calc(var(--spinner-size) * -0.34)) rotate(-22.5deg); }
-.images:nth-of-type(3) { transform: rotate(67.5deg)  translateY(calc(var(--spinner-size) * -0.34)) rotate(-67.5deg); }
-.images:nth-of-type(4) { transform: rotate(112.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-112.5deg); }
-.images:nth-of-type(5) { transform: rotate(157.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-157.5deg); }
-.images:nth-of-type(6) { transform: rotate(202.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-202.5deg); }
-.images:nth-of-type(7) { transform: rotate(247.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-247.5deg); }
-.images:nth-of-type(8) { transform: rotate(292.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-292.5deg); }
-.images:nth-of-type(9) { transform: rotate(337.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-337.5deg); }
+.images:nth-of-type(2) { transform: rotate(22.5deg)  translateY(calc(var(--spinner-size) * -0.34)) rotate(-22.5deg)  rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(3) { transform: rotate(67.5deg)  translateY(calc(var(--spinner-size) * -0.34)) rotate(-67.5deg)  rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(4) { transform: rotate(112.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-112.5deg) rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(5) { transform: rotate(157.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-157.5deg) rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(6) { transform: rotate(202.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-202.5deg) rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(7) { transform: rotate(247.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-247.5deg) rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(8) { transform: rotate(292.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-292.5deg) rotate(var(--counter-rot, 0deg)); }
+.images:nth-of-type(9) { transform: rotate(337.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-337.5deg) rotate(var(--counter-rot, 0deg)); }
 
 /* ---- Spin button ---- */
 #spin {
