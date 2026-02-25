@@ -5,6 +5,8 @@
 //   - Spin lock prevents double-clicks
 //   - Info panel no longer wipes spinner transform
 //   - Set buttons disabled while spinning
+//   - Animal images moved outside spinner (always upright)
+//   - Increased randomness, no two consecutive same segments
 
 'use strict';
 
@@ -20,8 +22,9 @@ const popupInfo = document.querySelector('.popupInfo');
 const closeInfo = document.querySelector('.closeInfo');
 
 // ---- State ----
-let totalRotation = 0;   // cumulative degrees - never reset (keeps CSS transition smooth)
-let isSpinning    = false;
+let totalRotation   = 0;   // cumulative degrees - never reset (keeps CSS transition smooth)
+let isSpinning      = false;
+let lastSegment     = -1;  // track last landed segment to avoid repeats
 
 // Must match --spin-duration in CSS (in milliseconds)
 const SPIN_DURATION_MS = 5000;
@@ -34,24 +37,28 @@ let currentSet = ['turkey', 'horse', 'sheep', 'cat', 'duck', 'dog', 'rooster', '
 btnOne.addEventListener('click', function () {
   if (isSpinning) return;
   currentSet = ['turkey', 'horse', 'sheep', 'cat', 'duck', 'dog', 'rooster', 'cow'];
+  lastSegment = -1;
   changeImages(currentSet);
 });
 
 btnTwo.addEventListener('click', function () {
   if (isSpinning) return;
   currentSet = ['whale', 'lion', 'elephant', 'dinosaur', 'hippo', 'zebra', 'tiger', 'panda'];
+  lastSegment = -1;
   changeImages(currentSet);
 });
 
 btnThree.addEventListener('click', function () {
   if (isSpinning) return;
   currentSet = ['hyena', 'otter', 'owl', 'snake', 'bee', 'wolf', 'falcon', 'frog'];
+  lastSegment = -1;
   changeImages(currentSet);
 });
 
 btnHidden.addEventListener('click', function () {
   if (isSpinning) return;
   currentSet = ['penguin', 'wave', 'penguin', 'penguin', 'penguin', 'wave', 'penguin', 'penguin'];
+  lastSegment = -1;
   changeImages(currentSet);
 });
 
@@ -59,57 +66,66 @@ btnHidden.addEventListener('click', function () {
 spinBtn.addEventListener('click', function () {
   if (isSpinning) return;
 
-  // Random extra rotation: 720-2160 degrees (2-6 full turns + random offset)
-  var extraDeg = Math.ceil(Math.random() * 1440) + 720;
+  // Pick a target segment that is different from the last one
+  var targetSegment = lastSegment;
+  while (targetSegment === lastSegment) {
+    targetSegment = Math.floor(Math.random() * 8);
+  }
+
+  // Calculate a target angle that lands in the middle of the target segment
+  // Segment midpoints: 22.5, 67.5, 112.5 ... 337.5 degrees
+  // When wheel rotates by X degrees, pointer sees angle (360 - X%360)%360
+  // So to land on segment S (midpoint = S*45 + 22.5), we need:
+  //   (360 - X%360)%360 = S*45 + 22.5  =>  X%360 = (360 - S*45 - 22.5 + 360)%360
+  var segmentMidAngle  = targetSegment * 45 + 22.5;
+  var targetRemainder  = (360 - segmentMidAngle + 360) % 360;
+
+  // Add a small random jitter within the segment (+/- 18 degrees) so it
+  // doesn't always land dead-center, making it feel more natural
+  var jitter = (Math.random() - 0.5) * 36;  // -18 to +18 degrees
+  targetRemainder = (targetRemainder + jitter + 360) % 360;
+
+  // Choose a random number of full rotations (3 to 9 full spins)
+  var fullSpins = (Math.floor(Math.random() * 7) + 3) * 360;
+
+  // Calculate extra degrees needed beyond current totalRotation
+  var currentRemainder = totalRotation % 360;
+  var degreesNeeded = (targetRemainder - currentRemainder + 360) % 360;
+  if (degreesNeeded < 45) degreesNeeded += 360; // ensure minimum spin
+  var extraDeg = fullSpins + degreesNeeded;
+
   totalRotation += extraDeg;
 
   // Apply rotation - CSS transition animates it smoothly
   spinner.style.transform = 'rotate(' + totalRotation + 'deg)';
 
   // Lock UI during spin
-  isSpinning = true;
+  isSpinning  = true;
   spinBtn.disabled = true;
 
   // Play the correct animal sound when the wheel finishes
   setTimeout(function () {
-    var finalAngle = totalRotation % 360;
-    playSoundForAngle(finalAngle);
-    isSpinning = false;
+    var finalAngle   = totalRotation % 360;
+    var norm         = ((finalAngle % 360) + 360) % 360;
+    var pointerAngle = (360 - norm) % 360;
+    var segmentIndex = Math.floor(pointerAngle / 45) % 8;
+    var animal       = currentSet[segmentIndex];
+
+    console.log('[SoundSpinner] rotation:', finalAngle,
+                '| pointer:', pointerAngle,
+                '| segment:', segmentIndex,
+                '| animal:', animal);
+
+    var audio = new Audio('sounds/' + animal + '.mp3');
+    audio.play().catch(function (err) {
+      console.warn('Audio play failed (user gesture may be needed):', err);
+    });
+
+    lastSegment      = segmentIndex;
+    isSpinning       = false;
     spinBtn.disabled = false;
   }, SPIN_DURATION_MS);
 });
-
-/**
- * Determine which segment the fixed pointer (top/12-o'clock) lands on.
- *
- * Segment layout (CSS, 0deg = 12 o'clock, clockwise):
- *   Segment 0  (currentSet[0]):   0deg -  45deg
- *   Segment 1  (currentSet[1]):  45deg -  90deg
- *   Segment 2  (currentSet[2]):  90deg - 135deg
- *   ...and so on clockwise
- *
- * After rotating the wheel clockwise by rotatedDeg degrees, the segment
- * now under the top pointer originally sat at:
- *   pointerAngle = (360 - rotatedDeg % 360) % 360
- *
- * @param {number} rotatedDeg - total rotation modulo 360
- */
-function playSoundForAngle(rotatedDeg) {
-  var norm         = ((rotatedDeg % 360) + 360) % 360;
-  var pointerAngle = (360 - norm) % 360;
-  var segmentIndex = Math.floor(pointerAngle / 45) % 8;
-  var animal       = currentSet[segmentIndex];
-
-  console.log('[SoundSpinner] rotation:', rotatedDeg,
-              '| pointer:', pointerAngle,
-              '| segment:', segmentIndex,
-              '| animal:', animal);
-
-  var audio = new Audio('sounds/' + animal + '.mp3');
-  audio.play().catch(function (err) {
-    console.warn('Audio play failed (user gesture may be needed):', err);
-  });
-}
 
 // ---- Update images when set changes ----
 function changeImages(set) {
