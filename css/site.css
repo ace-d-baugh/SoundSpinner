@@ -108,14 +108,14 @@ body {
     display: block;
 }
 
-.images:nth-of-type(1) { transform: rotate(22.5deg)  translateY(calc(var(--spinner-size) * -0.28)) rotate(-22.5deg); }
-.images:nth-of-type(2) { transform: rotate(67.5deg)  translateY(calc(var(--spinner-size) * -0.28)) rotate(-67.5deg); }
-.images:nth-of-type(3) { transform: rotate(112.5deg) translateY(calc(var(--spinner-size) * -0.28)) rotate(-112.5deg); }
-.images:nth-of-type(4) { transform: rotate(157.5deg) translateY(calc(var(--spinner-size) * -0.28)) rotate(-157.5deg); }
-.images:nth-of-type(5) { transform: rotate(202.5deg) translateY(calc(var(--spinner-size) * -0.28)) rotate(-202.5deg); }
-.images:nth-of-type(6) { transform: rotate(247.5deg) translateY(calc(var(--spinner-size) * -0.28)) rotate(-247.5deg); }
-.images:nth-of-type(7) { transform: rotate(292.5deg) translateY(calc(var(--spinner-size) * -0.28)) rotate(-292.5deg); }
-.images:nth-of-type(8) { transform: rotate(337.5deg) translateY(calc(var(--spinner-size) * -0.28)) rotate(-337.5deg); }
+.images:nth-of-type(2) { transform: rotate(22.5deg)  translateY(calc(var(--spinner-size) * -0.34)) rotate(-22.5deg); }
+.images:nth-of-type(3) { transform: rotate(67.5deg)  translateY(calc(var(--spinner-size) * -0.34)) rotate(-67.5deg); }
+.images:nth-of-type(4) { transform: rotate(112.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-112.5deg); }
+.images:nth-of-type(5) { transform: rotate(157.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-157.5deg); }
+.images:nth-of-type(6) { transform: rotate(202.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-202.5deg); }
+.images:nth-of-type(7) { transform: rotate(247.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-247.5deg); }
+.images:nth-of-type(8) { transform: rotate(292.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-292.5deg); }
+.images:nth-of-type(9) { transform: rotate(337.5deg) translateY(calc(var(--spinner-size) * -0.34)) rotate(-337.5deg); }
 
 /* ---- Spin button ---- */
 #spin {
